@@ -1,0 +1,36 @@
+<project name="usermanagement" basedir="." default="test">
+    <property name="main-java-dir" value="src/main/java"/>
+    <property name="src-dir" value="src"/>
+    <property name="test-java-dir" value="src/test/java"/>
+    <property name="build-dir" value="${basedir}/bin"/>
+
+    <target name="clean">
+        <delete dir="${build-dir}"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="${build-dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${main-java-dir}" destdir="${build-dir}"/>
+    </target>
+
+    <target name="test-compile">
+        <javac srcdir="${test-java-dir}" destdir="${build-dir}"/>
+    </target>
+    <target name="test" depends="test-compile">
+        <junit>
+            <classpath>
+                <pathelement path="${build-dir}"/>
+            </classpath>
+            <formatter type="plain"/>
+            <batchtest>
+                <fileset dir="src/test/java">
+                    <include name="**/*Test"/>
+                </fileset>
+            </batchtest>
+            <test name="test.java.ua.nure.chub.UserTest" />
+        </junit>
+    </target>
+</project>
